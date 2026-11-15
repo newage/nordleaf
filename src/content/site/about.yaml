@@ -1,0 +1,14 @@
+eyebrow: "O Nordleaf"
+heading: "Dobieramy zieleń do miejsca,"
+headingEm: "nie odwrotnie."
+lead: "Nordleaf to rośliny i donice na zamówienie. Pomagamy wybrać zieleń do konkretnego wnętrza — tak, żeby dobrze wyglądała i dobrze się w nim czuła."
+features:
+  - icon: sun
+    title: "Rośliny dobrane do warunków"
+    text: "Bierzemy pod uwagę światło, przestrzeń i to, ile czasu chcesz poświęcać na pielęgnację."
+  - icon: pot
+    title: "Donice na zamówienie"
+    text: "Formy, kolory i rozmiary dopasowane do wnętrza i do rośliny."
+  - icon: set
+    title: "Gotowe zestawy"
+    text: "Skompletowane aranżacje do mieszkań, biur i lokali — wystarczy wybrać miejsce."
