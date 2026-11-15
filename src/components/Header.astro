@@ -1,0 +1,24 @@
+---
+import Logo from './Logo.astro';
+import { navItems } from '../lib/nav';
+---
+<header class="hdr">
+  <div class="wrap hdr-in">
+    <a class="logo" href="#top" aria-label="Nordleaf — strona główna">
+      <Logo />
+      <span>Nordleaf</span>
+    </a>
+    <nav class="nav" aria-label="Główna nawigacja">
+      <i class="pill" aria-hidden="true" style="transform: translateX(0px); width: 0px; opacity: 0"></i>
+      {navItems.map((n) => <a class="roll" href={n.href}><span data-t={n.label}>{n.label}</span></a>)}
+    </nav>
+    <a class="btn btn-dark btn-sm hdr-cta" href="#kontakt"><span>Wyślij zapytanie</span></a>
+    <button class="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="mnav"><i></i><i></i></button>
+  </div>
+</header>
+
+<div class="mnav" id="mnav" inert>
+  {navItems.map((n) => <a href={n.href}>{n.label}</a>)}
+  <a href="#kontakt"><em style="color: #C9D6B5">Wyślij zapytanie →</em></a>
+  <small>Rośliny · Donice · Zestawy na zamówienie</small>
+</div>

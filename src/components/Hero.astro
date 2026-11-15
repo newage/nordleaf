@@ -1,0 +1,44 @@
+---
+import { Picture } from 'astro:assets';
+import ArrowIcon from './ArrowIcon.astro';
+import { getSite } from '../lib/site';
+
+const hero = await getSite('hero');
+// «Zieleń» (акцентне слово) + решта слів заголовка; затримка анімації 0.6 с + 0.1 с на слово
+const words = [{ text: hero.titleEm, em: true }, ...hero.title.split(' ').map((text) => ({ text, em: false }))];
+---
+<section class="hero" id="top">
+  <div class="hero-media">
+    <Picture
+      class="hero-img"
+      src={hero.image}
+      alt={hero.imageAlt}
+      formats={['avif', 'webp']}
+      widths={[640, 960, 1280, 1920]}
+      sizes="100vw"
+      loading="eager"
+      fetchpriority="high"
+      decoding="async"
+    />
+  </div>
+  <div class="hero-panel">
+    <div class="eyebrow fade-up" style="animation-delay: .5s">{hero.eyebrow}</div>
+    <h1>
+      {words.map((w, i) => (
+        <><span class="w"><span style={`animation-delay: ${(0.6 + i * 0.1).toFixed(1)}s`}>{w.em ? <em>{w.text}</em> : w.text}</span></span>{' '}</>
+      ))}
+    </h1>
+    <p class="fade-up" style="animation-delay: 1.2s">{hero.lead}</p>
+    <div class="hero-ctas fade-up" style="animation-delay: 1.35s">
+      <a class="btn btn-dark" href="#kontakt"><span>{hero.ctaPrimary}</span><ArrowIcon /></a>
+      <a class="btn btn-ghost" href="#oferta"><span>{hero.ctaSecondary}</span></a>
+    </div>
+  </div>
+  <div class="scroll-cue fade-up" style="animation-delay: 1.6s" aria-hidden="true"><span>Przewiń</span><i></i></div>
+</section>
+
+<div class="marq" aria-hidden="true">
+  <div class="marq-track">
+    {[0, 1].map(() => ['Rośliny', 'Donice na zamówienie', 'Gotowe zestawy', 'Mieszkania', 'Biura', 'Lokale'].map((t) => <span>{t}</span>))}
+  </div>
+</div>

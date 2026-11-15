@@ -1,0 +1,15 @@
+body{margin:0;background:#F3F0E8}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+.nl{--bg:#F3F0E8;--sand:#E8E2D4;--stone:#D8D0BE;--ink:#1F2620;--muted:#565D52;--moss:#3D5034;--moss2:#2E3D27;--clay:#9E5530;--pink:#C9779A;font-family:"Inter Tight",system-ui,sans-serif;color:var(--ink);background:var(--bg);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:clip}
+.nl *{box-sizing:border-box}
+.nl a{color:inherit;text-decoration:none}
+.nl h1,.nl h2,.nl h3{font-family:"Instrument Serif",Georgia,serif;font-weight:400;margin:0;letter-spacing:-0.01em}
+.nl em{font-style:italic;color:var(--moss)}
+.wrap{max-width:1240px;margin:0 auto;padding:0 32px}
+.eyebrow{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:500;display:inline-flex;align-items:center;gap:10px}
+.eyebrow::before{content:"";width:28px;height:1px;background:currentColor}
+
+/* Видимий фокус для клавіатури (вигляд мишею не змінюється) */
+.nl :focus-visible{outline:2px solid var(--moss);outline-offset:3px}
+.contact :focus-visible,.mnav :focus-visible,.foot :focus-visible{outline-color:#C9D6B5}
+.contact .form :focus-visible{outline-color:var(--moss)}

@@ -1,0 +1,22 @@
+---
+import { Picture } from 'astro:assets';
+import { getSite } from '../lib/site';
+
+const band = await getSite('band');
+---
+<section class="band" aria-label="Nordleaf">
+  <Picture
+    class="band-img"
+    src={band.image}
+    alt=""
+    aria-hidden="true"
+    formats={['avif', 'webp']}
+    widths={[640, 1024, 1440, 1920]}
+    sizes="100vw"
+    loading="lazy"
+    decoding="async"
+  />
+  <div class="band-q">
+    <h2 class="rv">{band.heading} <em>{band.headingEm}</em></h2>
+  </div>
+</section>

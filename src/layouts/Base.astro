@@ -1,0 +1,49 @@
+---
+import { CF_ANALYTICS_TOKEN } from 'astro:env/client';
+import '../styles/fonts.css';
+import '../styles/base.css';
+import '../styles/header.css';
+import '../styles/buttons.css';
+import '../styles/hero.css';
+import '../styles/marquee.css';
+import '../styles/reveal.css';
+import '../styles/about.css';
+import '../styles/offer.css';
+import '../styles/band.css';
+import '../styles/steps.css';
+import '../styles/contact.css';
+import '../styles/footer.css';
+import '../styles/responsive.css';
+
+interface Props {
+  title: string;
+  description: string;
+}
+const { title, description } = Astro.props;
+// Cloudflare Web Analytics: без cookies; токен задається в збірці
+const cfToken = CF_ANALYTICS_TOKEN;
+---
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    {cfToken && <script is:inline defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon={JSON.stringify({ token: cfToken })}></script>}
+  </head>
+  <body>
+    <div class="nl">
+      <div class="prog" aria-hidden="true"></div>
+      <slot />
+    </div>
+    <script>
+      import '../scripts/effects';
+      import '../scripts/contact-form';
+    </script>
+  </body>
+</html>

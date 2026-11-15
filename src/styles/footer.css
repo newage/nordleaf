@@ -1,0 +1,9 @@
+.foot{background:var(--moss2);color:rgba(243,240,232,.75);padding:0 0 40px}
+.foot-in{border-top:1px solid rgba(243,240,232,.16);padding-top:32px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;font-size:14px}
+.foot .logo{color:#F3F0E8;font-size:26px}
+.foot nav{display:flex;gap:24px;flex-wrap:wrap}
+.foot nav a{padding:10px 0}
+.foot nav a:hover{color:#F3F0E8}
+.big-word{font-family:"Instrument Serif",serif;font-size:min(23vw,330px);line-height:.8;color:rgba(243,240,232,.08);text-align:center;margin:40px 0 32px;letter-spacing:-.03em;white-space:nowrap;overflow:hidden}
+/* Декоративний напис: текст у псевдоелементі, щоб не потрапляв у перевірку контрасту */
+.big-word::before{content:attr(data-w)}

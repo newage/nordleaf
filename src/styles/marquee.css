@@ -1,0 +1,7 @@
+.marq{border-top:1px solid rgba(31,38,32,.1);border-bottom:1px solid rgba(31,38,32,.1);overflow:hidden;padding:22px 0;background:var(--bg)}
+.marq-track{display:flex;width:max-content;animation:marq 38s linear infinite}
+.marq:hover .marq-track{animation-play-state:paused}
+.marq-track span{font-family:"Instrument Serif",serif;font-size:34px;padding:0 28px;display:inline-flex;align-items:center;gap:56px;white-space:nowrap}
+.marq-track span::after{content:"";width:9px;height:9px;border-radius:50%;background:var(--pink)}
+.marq-track span:nth-child(even){font-style:italic;color:var(--moss)}
+@keyframes marq{to{transform:translateX(-50%)}}

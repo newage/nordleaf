@@ -1,0 +1,26 @@
+---
+import ArrowIcon from './ArrowIcon.astro';
+import { getSite } from '../lib/site';
+
+const steps = await getSite('steps');
+---
+<section class="sec" id="jak-zamowic">
+  <div class="wrap">
+    <div class="steps-head">
+      <div>
+        <div class="eyebrow rv">{steps.eyebrow}</div>
+        <h2 class="rv d1">{steps.heading} <em>{steps.headingEm}</em></h2>
+      </div>
+      <p class="rv d2">{steps.lead}</p>
+    </div>
+    <div class="steps">
+      {steps.items.map((s, i) => (
+        <div class={`step rv${i ? ` d${i}` : ''}`}><div class="num">{i + 1}</div><h3>{s.title}</h3><p>{s.text}</p></div>
+      ))}
+    </div>
+    <div class="no-cart rv">
+      <p>{steps.ctaText}</p>
+      <a class="btn btn-dark" href="#kontakt"><span>{steps.ctaLabel}</span><ArrowIcon /></a>
+    </div>
+  </div>
+</section>

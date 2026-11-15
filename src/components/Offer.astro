@@ -1,0 +1,62 @@
+---
+import { getCollection } from 'astro:content';
+import { Picture } from 'astro:assets';
+import { getSite } from '../lib/site';
+
+const offer = await getSite('offer');
+
+const byOrder = <T extends { data: { order: number } }>(items: T[]) => [...items].sort((a, b) => a.data.order - b.data.order);
+
+const groups = [
+  { id: 'rosliny', label: 'Rośliny', cols: 4, ask: 'Zapytaj o dostępność', items: byOrder(await getCollection('plants')) },
+  { id: 'donice', label: 'Donice', cols: 4, ask: 'Zapytaj o dostępność', items: byOrder(await getCollection('planters')) },
+  { id: 'zestawy', label: 'Zestawy', cols: 3, ask: 'Zapytaj o ten zestaw', items: byOrder(await getCollection('sets')) },
+];
+---
+<section class="sec offer" id="oferta">
+  <div class="wrap">
+    <div class="offer-head">
+      <div>
+        <div class="eyebrow rv">{offer.eyebrow}</div>
+        <h2 class="rv d1">{offer.heading} <em>{offer.headingEm}</em></h2>
+      </div>
+      <div class="tabs rv d2" role="tablist" aria-label="Kategorie oferty">
+        <i class="tab-ind" aria-hidden="true" style="transform: translateX(0%)"></i>
+        {groups.map((g, i) => (
+          <button class={`tab${i === 0 ? ' on' : ''}`} type="button" role="tab" id={`tab-${g.id}`} aria-controls={`panel-${g.id}`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1}>{g.label}</button>
+        ))}
+      </div>
+    </div>
+
+    {groups.map((g, gi) => (
+      <div class={`panel grid${g.cols}`} id={`panel-${g.id}`} role="tabpanel" aria-labelledby={`tab-${g.id}`} data-panel hidden={gi !== 0 ? true : undefined}>
+        {g.items.map((it, i) => (
+          <div class="cw" style={`animation-delay: ${(i * 0.08).toFixed(2)}s`}>
+            <article class="card">
+              <div class="ph">
+                <Picture
+                  src={it.data.image}
+                  alt={it.data.alt}
+                  formats={['avif', 'webp']}
+                  widths={[300, 450, 600, 800]}
+                  sizes={g.cols === 3 ? '(max-width: 860px) 100vw, 380px' : '(max-width: 1100px) 50vw, 300px'}
+                  loading="lazy"
+                  decoding="async"
+                />
+                <span class="ph-tag">{it.data.tag}</span>
+                <i class="ph-glare" aria-hidden="true"></i>
+              </div>
+              <div class="cb">
+                <h3>{it.data.name}</h3>
+                <p>{it.data.desc}</p>
+                <button class="ask" type="button" data-ask={it.data.name}>{g.ask}<svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+              </div>
+            </article>
+          </div>
+        ))}
+      </div>
+    ))}
+
+    <div class="offer-note rv"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="#3D5034" stroke-width="1.6"></circle><path d="M12 11v5M12 8h.01" stroke="#3D5034" stroke-width="2" stroke-linecap="round"></path></svg><span>{offer.notePrefix}<b>{offer.noteStrong}</b>{offer.noteSuffix}</span></div>
+  </div>
+</section>
