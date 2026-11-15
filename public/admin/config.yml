@@ -1,0 +1,159 @@
+backend:
+  name: github
+  repo: newage/nordleaf
+  branch: main
+  # Підставте домен auth-Worker (див. README, ручний чекліст)
+  base_url: https://AUTH-WORKER-DOMAIN
+  auth_endpoint: auth
+
+# Локально працює проти файлової системи через decap-server (make up); на проді ігнорується
+local_backend: true
+
+# Без editorial workflow: збереження одразу публікує коміт у main
+publish_mode: simple
+
+locale: pl
+site_url: https://SITE-DOMAIN
+display_url: https://SITE-DOMAIN
+
+# Зображення йдуть у src/assets. Глобально (вкладка «Multimedia») — шлях від кореня репозиторію;
+# у колекціях нижче — відносний шлях від файлу контенту, який потрапляє у frontmatter
+media_folder: src/assets/uploads
+public_folder: ../../assets/uploads
+
+collections:
+  - name: plants
+    label: Rośliny
+    label_singular: Roślina
+    folder: src/content/plants
+    extension: md
+    format: frontmatter
+    create: true
+    slug: "{{slug}}"
+    media_folder: ../../assets/uploads
+    public_folder: ../../assets/uploads
+    summary: "{{name}}"
+    sortable_fields: [order, name]
+    fields: &item_fields
+      - { label: Nazwa, name: name, widget: string }
+      - { label: Opis, name: desc, widget: text }
+      - { label: Znacznik na zdjęciu, name: tag, widget: string }
+      - { label: Zdjęcie, name: image, widget: image, choose_url: false }
+      - { label: Tekst alternatywny zdjęcia, name: alt, widget: string, hint: "Krótki opis tego, co widać na zdjęciu (dla czytników ekranu)." }
+      - { label: Kolejność, name: order, widget: number, value_type: int, default: 0, min: 0 }
+
+  - name: planters
+    label: Donice
+    label_singular: Donica
+    folder: src/content/planters
+    extension: md
+    format: frontmatter
+    create: true
+    slug: "{{slug}}"
+    media_folder: ../../assets/uploads
+    public_folder: ../../assets/uploads
+    summary: "{{name}}"
+    sortable_fields: [order, name]
+    fields: *item_fields
+
+  - name: sets
+    label: Zestawy
+    label_singular: Zestaw
+    folder: src/content/sets
+    extension: md
+    format: frontmatter
+    create: true
+    slug: "{{slug}}"
+    media_folder: ../../assets/uploads
+    public_folder: ../../assets/uploads
+    summary: "{{name}}"
+    sortable_fields: [order, name]
+    fields: *item_fields
+
+  - name: site
+    label: Teksty strony
+    media_folder: ../../assets/uploads
+    public_folder: ../../assets/uploads
+    files:
+      - label: Baner główny
+        name: hero
+        file: src/content/site/hero.yaml
+        fields:
+          - { label: Nadtytuł, name: eyebrow, widget: string }
+          - { label: Wyróżnione słowo tytułu, name: titleEm, widget: string }
+          - { label: Reszta tytułu, name: title, widget: string }
+          - { label: Opis, name: lead, widget: text }
+          - { label: Przycisk główny, name: ctaPrimary, widget: string }
+          - { label: Przycisk dodatkowy, name: ctaSecondary, widget: string }
+          - { label: Zdjęcie, name: image, widget: image, choose_url: false }
+          - { label: Tekst alternatywny zdjęcia, name: imageAlt, widget: string }
+      - label: O nas
+        name: about
+        file: src/content/site/about.yaml
+        fields:
+          - { label: Nadtytuł, name: eyebrow, widget: string }
+          - { label: Nagłówek, name: heading, widget: string }
+          - { label: Wyróżniona część nagłówka, name: headingEm, widget: string }
+          - { label: Wstęp, name: lead, widget: text }
+          - label: Atuty (dokładnie 3)
+            name: features
+            widget: list
+            min: 3
+            max: 3
+            fields:
+              - label: Ikona
+                name: icon
+                widget: select
+                options:
+                  - { label: Słońce, value: sun }
+                  - { label: Donica, value: pot }
+                  - { label: Zestaw, value: set }
+              - { label: Tytuł, name: title, widget: string }
+              - { label: Opis, name: text, widget: text }
+      - label: Oferta (teksty)
+        name: offer
+        file: src/content/site/offer.yaml
+        fields:
+          - { label: Nadtytuł, name: eyebrow, widget: string }
+          - { label: Nagłówek, name: heading, widget: string }
+          - { label: Wyróżniona część nagłówka, name: headingEm, widget: string }
+          - { label: Uwaga — początek, name: notePrefix, widget: string }
+          - { label: Uwaga — pogrubiony fragment, name: noteStrong, widget: string }
+          - { label: Uwaga — koniec, name: noteSuffix, widget: string }
+      - label: Pas ze zdjęciem
+        name: band
+        file: src/content/site/band.yaml
+        fields:
+          - { label: Cytat, name: heading, widget: string }
+          - { label: Wyróżniona część cytatu, name: headingEm, widget: string }
+          - { label: Zdjęcie, name: image, widget: image, choose_url: false }
+      - label: Jak zamówić
+        name: steps
+        file: src/content/site/steps.yaml
+        fields:
+          - { label: Nadtytuł, name: eyebrow, widget: string }
+          - { label: Nagłówek, name: heading, widget: string }
+          - { label: Wyróżniona część nagłówka, name: headingEm, widget: string }
+          - { label: Wstęp, name: lead, widget: text }
+          - label: Kroki (dokładnie 4)
+            name: items
+            widget: list
+            min: 4
+            max: 4
+            fields:
+              - { label: Tytuł, name: title, widget: string }
+              - { label: Opis, name: text, widget: text }
+          - { label: Tekst przy przycisku, name: ctaText, widget: string }
+          - { label: Przycisk, name: ctaLabel, widget: string }
+      - label: Kontakt
+        name: contact
+        file: src/content/site/contact.yaml
+        fields:
+          - { label: Nadtytuł, name: eyebrow, widget: string }
+          - { label: Nagłówek, name: heading, widget: string }
+          - { label: Wyróżniona część nagłówka, name: headingEm, widget: string }
+          - { label: Wstęp, name: lead, widget: text }
+          - { label: E-mail, name: email, widget: string }
+          - { label: Telefon, name: phone, widget: string }
+          - { label: Obszar dostaw, name: area, widget: string }
+          - { label: Godziny kontaktu, name: hours, widget: string }

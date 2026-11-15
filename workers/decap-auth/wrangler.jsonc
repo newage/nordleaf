@@ -1,0 +1,13 @@
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  "name": "nordleaf-decap-auth",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-11-01",
+  "vars": {
+    // Origin сайту (де відкривається /admin). Підставте реальний домен (див. README)
+    "ALLOWED_ORIGIN": "https://SITE-DOMAIN",
+    // `repo` — приватний репозиторій, `public_repo` — публічний
+    "GITHUB_SCOPE": "repo"
+  }
+  // Секрети (wrangler secret put): GITHUB_OAUTH_ID, GITHUB_OAUTH_SECRET
+}

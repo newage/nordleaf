@@ -1,0 +1,11 @@
+{
+  "name": "nordleaf-decap-auth",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "deploy": "wrangler deploy"
+  },
+  "devDependencies": {
+    "wrangler": "^4.162.0"
+  }
+}
