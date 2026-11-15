@@ -1,0 +1,42 @@
+name: nordleaf
+
+services:
+  app:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      args:
+        HOST_UID: ${HOST_UID:-1000}
+        HOST_GID: ${HOST_GID:-1000}
+    command: npm run dev
+    ports:
+      - "4321:4321"
+      - "8787:8787"
+    volumes:
+      - ..:/app
+      - node_modules:/app/node_modules
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+
+  decap:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      args:
+        HOST_UID: ${HOST_UID:-1000}
+        HOST_GID: ${HOST_GID:-1000}
+    # decap-server пише зміни напряму в змонтований репозиторій (local_backend)
+    command: npx decap-server
+    ports:
+      # лише з цієї машини: сервер пише у файли репозиторію без автентифікації
+      - "127.0.0.1:8081:8081"
+    environment:
+      - PORT=8081
+      # у контейнері слухаємо всі інтерфейси; назовні порт відкрито лише на 127.0.0.1
+      - BIND_HOST=0.0.0.0
+    volumes:
+      - ..:/app
+      - node_modules:/app/node_modules
+
+volumes:
+  node_modules:

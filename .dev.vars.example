@@ -1,0 +1,9 @@
+# Скопіюйте в .dev.vars (файл у .gitignore). Це ТЕСТОВІ ключі Cloudflare Turnstile.
+# 1x…AA / 1x…AA = завжди проходить; 2x…AA = завжди відхиляє.
+TURNSTILE_SECRET_KEY=1x0000000000000000000000000000000AA
+RESEND_API_KEY=re_test_replace_me
+CONTACT_TO_EMAIL=kontakt@example.com
+# Відправник листів. Без підтвердженого домену в Resend лишіть пісочницю:
+CONTACT_FROM_EMAIL=Nordleaf <onboarding@resend.dev>
+# Лише локально, для перевірки без справжнього Resend: адреса мок-сервера
+# RESEND_API_URL=http://localhost:8788/emails
