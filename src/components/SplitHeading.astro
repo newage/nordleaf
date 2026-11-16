@@ -1,0 +1,13 @@
+---
+import { splitWords } from '../lib/split-words';
+
+interface Props { heading: string; headingEm?: string }
+const { heading, headingEm = '' } = Astro.props;
+const plain = splitWords(heading);
+const accent = splitWords(headingEm, plain.length);
+const label = [heading, headingEm].filter(Boolean).join(' ');
+---
+<h2 class="split" aria-label={label}>
+  {plain.map((w) => <><span class="sw" aria-hidden="true"><span class="sw-i" style={`transition-delay: ${w.delay.toFixed(2)}s`}>{w.text}</span></span>{' '}</>)}
+  {accent.length > 0 && <em aria-hidden="true">{accent.map((w, i) => <><span class="sw"><span class="sw-i" style={`transition-delay: ${w.delay.toFixed(2)}s`}>{w.text}</span></span>{i < accent.length - 1 ? ' ' : ''}</>)}</em>}
+</h2>

@@ -18,6 +18,8 @@ export const siteSchemas = ({ image }: SchemaContext) => ({
     heading: z.string(),
     headingEm: z.string(),
     lead: z.string(),
+    image: image(),
+    imageAlt: z.string(),
     features: z
       .array(z.object({ icon: z.enum(['sun', 'pot', 'set']), title: z.string(), text: z.string() }))
       .length(3),

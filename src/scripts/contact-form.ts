@@ -47,7 +47,7 @@ function init(form: HTMLFormElement) {
     s.src = TURNSTILE_SRC;
     s.async = true;
     s.onload = () => {
-      widgetId = window.turnstile?.render(slot, { sitekey: form.dataset.sitekey, theme: 'light' });
+      widgetId = window.turnstile?.render(slot, { sitekey: form.dataset.sitekey, theme: 'light', appearance: 'interaction-only' });
     };
     document.head.appendChild(s);
   };

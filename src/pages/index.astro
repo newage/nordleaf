@@ -20,6 +20,10 @@ import Footer from '../components/Footer.astro';
     <Offer />
     <Band />
     <Steps />
+    <div class="sv" aria-hidden="true">
+      <div class="sv-row sv-a">{['Rośliny', 'Donice', 'Zestawy', 'Rośliny', 'Donice', 'Zestawy', 'Rośliny', 'Donice'].map((t, i) => <span class={i % 2 === 1 ? 'f' : undefined}>{t}</span>)}</div>
+      <div class="sv-row sv-b">{['Mieszkania', 'Biura', 'Lokale', 'Mieszkania', 'Biura', 'Lokale', 'Mieszkania', 'Biura'].map((t, i) => <span class={i % 2 === 0 ? 'f' : undefined}>{t}</span>)}</div>
+    </div>
     <Contact />
   </main>
   <Footer />

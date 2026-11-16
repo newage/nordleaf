@@ -7,13 +7,15 @@
 .cinfo{display:grid;gap:0}
 .cinfo a,.cinfo div{display:grid;grid-template-columns:120px minmax(0,1fr);gap:16px;padding:18px 0;border-top:1px solid rgba(243,240,232,.16);font-size:17px}
 .cinfo span{color:rgba(243,240,232,.6);font-size:14px;padding-top:2px}
-.cinfo a b{font-weight:500;background:linear-gradient(currentColor,currentColor) 0 100%/0 1px no-repeat;transition:background-size .5s}
-.cinfo a:hover b{background-size:100% 1px}
+.cinfo .lnk b{font-weight:400;background:linear-gradient(currentColor,currentColor) 0 100%/0 1px no-repeat;transition:background-size .5s;justify-self:start;align-self:start}
+.cinfo .lnk:hover b{background-size:100% 1px}
 .form{background:var(--bg);color:var(--ink);border-radius:32px;padding:40px;display:grid;gap:18px}
 .row2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
 .fld{position:relative;display:block}
 .fld input,.fld textarea{width:100%;font-family:inherit;font-size:16px;color:var(--ink);background:transparent;border:0;border-bottom:1px solid rgba(31,38,32,.28);padding:26px 0 10px;outline:none;border-radius:0;resize:vertical}
 .fld textarea{min-height:120px}
+/* Фокус поля показує підкреслення `.fld::after`, а не контур */
+.fld input:focus-visible,.fld textarea:focus-visible{outline:none}
 .fld span{position:absolute;left:0;top:24px;font-size:16px;color:var(--muted);pointer-events:none;transition:top .3s,font-size .3s,color .3s}
 .fld input:focus + span,.fld input:not(:placeholder-shown) + span,.fld textarea:focus + span,.fld textarea:not(:placeholder-shown) + span{top:2px;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--moss)}
 .fld::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--moss);transform:scaleX(0);transform-origin:0 50%;transition:transform .5s cubic-bezier(.7,0,.2,1)}

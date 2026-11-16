@@ -1,5 +1,7 @@
 ---
+import { Picture } from 'astro:assets';
 import { getSite } from '../lib/site';
+import SplitHeading from './SplitHeading.astro';
 
 const about = await getSite('about');
 const icons = {
@@ -12,7 +14,23 @@ const icons = {
   <div class="wrap about-grid">
     <div>
       <div class="eyebrow rv">{about.eyebrow}</div>
-      <h2 class="rv d1">{about.heading} <em>{about.headingEm}</em></h2>
+      <SplitHeading heading={about.heading} headingEm={about.headingEm} />
+      <div class="about-img">
+        <div class="about-ph rv-clip">
+          <Picture
+            src={about.image}
+            alt={about.imageAlt}
+            formats={['avif', 'webp']}
+            widths={[480, 720, 1040]}
+            sizes="(max-width: 1100px) 100vw, 520px"
+            width={1040}
+            height={780}
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+        <div class="badge rv" aria-hidden="true"><svg class="badge-txt" viewBox="0 0 120 120"><defs><path id="nlBadge" d="M60 60m-44 0a44 44 0 1 1 88 0a44 44 0 1 1-88 0"></path></defs><text><textPath href="#nlBadge" textLength="274">ROŚLINY • DONICE • ZESTAWY • </textPath></text></svg><span class="badge-c"><svg width="26" height="26" viewBox="0 0 32 32" fill="none"><path d="M6 26C6 14 14 6 27 5c0 13-8 21-20 21Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"></path><path d="M6 26 18 14" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path></svg></span></div>
+      </div>
     </div>
     <div>
       <p class="about-lead rv">{about.lead}</p>

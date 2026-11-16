@@ -28,7 +28,8 @@ html{scroll-behavior:smooth;scroll-padding-top:84px}
 .prog{position:fixed;top:0;left:0;right:0;height:2px;z-index:60;background:var(--moss);transform-origin:0 50%;transform:scaleX(var(--sp,0))}
 
 /* header */
-.hdr{position:fixed;top:0;left:0;right:0;z-index:50;transition:background .5s,box-shadow .5s,padding .5s;padding:22px 0}
+.hdr{position:fixed;top:0;left:0;right:0;z-index:50;transition:background .5s,box-shadow .5s,padding .5s,transform .6s cubic-bezier(.7,0,.2,1);padding:22px 0}
+.nl.hdr-hide .hdr{transform:translateY(-110%)}
 .nl.scrolled .hdr{background:rgba(243,240,232,.86);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 1px 0 rgba(31,38,32,.08);padding:12px 0}
 .hdr-in{display:flex;align-items:center;justify-content:space-between;gap:24px}
 .logo{display:inline-flex;align-items:center;gap:10px;font-family:"Instrument Serif",serif;font-size:30px;line-height:1}
@@ -68,8 +69,10 @@ html{scroll-behavior:smooth;scroll-padding-top:84px}
 /* hero */
 .hero{position:relative;height:max(56.25vw,640px);overflow:hidden;background:#DCD8CE}
 .hero-media{position:absolute;inset:0;overflow:hidden}
-.hero-img{width:100%;height:100%;object-fit:cover;object-position:50% 50%;display:block;transform:scale(1.06);will-change:transform;animation:heroIn 2.2s cubic-bezier(.2,.8,.2,1) both}
-@keyframes heroIn{from{opacity:0;transform:scale(1.18)}to{opacity:1;transform:scale(1.06)}}
+.hero-img{width:100%;height:100%;object-fit:cover;object-position:50% 50%;display:block;transform:scale(1.06);will-change:transform}
+.hero-media{animation:heroClip 1.7s cubic-bezier(.7,0,.2,1) 1.05s both}
+@keyframes heroClip{from{clip-path:inset(0 0 100% 0);transform:scale(1.14)}to{clip-path:inset(0 0 0 0);transform:none}}
+.hero-panel{animation:fadeUp 1.1s cubic-bezier(.2,.8,.2,1) 1.5s both}
 .hero-panel{position:absolute;left:max(32px,calc((100vw - 1240px)/2 + 32px));bottom:max(48px,4.5vw);max-width:540px;padding:34px 36px 36px;border-radius:28px;background:rgba(243,240,232,.62);backdrop-filter:blur(16px) saturate(1.1);-webkit-backdrop-filter:blur(16px) saturate(1.1);box-shadow:0 30px 60px -30px rgba(31,38,32,.25)}
 .hero h1{font-size:clamp(46px,4.6vw,76px);line-height:.98;margin:16px 0 18px}
 .w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.08em}
@@ -170,6 +173,7 @@ html{scroll-behavior:smooth;scroll-padding-top:84px}
 .steps::after{background:var(--moss);height:2px;top:30px;transform-origin:0 50%;transform:scaleX(var(--line))}
 .step{position:relative;z-index:1}
 .num{width:64px;height:64px;border-radius:50%;background:var(--bg);box-shadow:inset 0 0 0 1px rgba(31,38,32,.2);display:flex;align-items:center;justify-content:center;font-family:"Instrument Serif",serif;font-size:26px;transition:background .6s,color .6s,box-shadow .6s,transform .6s cubic-bezier(.3,1.5,.5,1)}
+.step:hover .num{transform:rotate(360deg) scale(1.08)}
 .step.act .num{background:var(--moss);color:#F3F0E8;box-shadow:none;transform:scale(1.08)}
 .step h3{font-family:"Inter Tight",sans-serif;font-weight:600;font-size:20px;margin:28px 0 10px;letter-spacing:0}
 .step p{margin:0;color:var(--muted);font-size:16px}
@@ -227,6 +231,84 @@ html{scroll-behavior:smooth;scroll-padding-top:84px}
 .foot nav a:hover{color:#F3F0E8}
 .big-word{font-family:"Instrument Serif",serif;font-size:min(23vw,330px);line-height:.8;color:rgba(243,240,232,.08);text-align:center;margin:40px 0 32px;letter-spacing:-.03em;white-space:nowrap;overflow:hidden}
 
+/* preloader */
+.pre{position:fixed;inset:0;z-index:100;background:var(--moss2);display:flex;align-items:center;justify-content:center;pointer-events:none;animation:preUp 1s cubic-bezier(.8,0,.2,1) 1.2s forwards}
+.pre-in{display:flex;align-items:center;gap:16px;color:#F3F0E8;font-family:"Instrument Serif",serif;font-size:60px;line-height:1;animation:preFade .45s ease 1s forwards}
+.pre svg path{stroke-dasharray:80;stroke-dashoffset:80;animation:draw 1s cubic-bezier(.6,0,.3,1) .05s forwards}
+.pre-w{display:inline-flex;overflow:hidden;padding-bottom:.1em}
+.pre-w i{font-style:normal;display:inline-block;animation:wordUp .8s cubic-bezier(.2,.8,.2,1) both}
+@keyframes preUp{0%{transform:translateY(0);border-radius:0}100%{transform:translateY(-100%);border-radius:0 0 50% 50%/0 0 120px 120px;visibility:hidden}}
+@keyframes preFade{to{opacity:0;transform:translateY(-24px)}}
+
+/* custom cursor */
+.cur{position:fixed;inset:0;pointer-events:none;z-index:95;display:none;transition:opacity .3s}
+.nl.has-cur .cur{display:block}
+.nl.cur-hide .cur{opacity:0}
+.cur-dot,.cur-ring{position:absolute;left:0;top:0;border-radius:50%;will-change:transform}
+.cur-dot{width:8px;height:8px;margin:-4px 0 0 -4px;background:var(--moss);transition:opacity .3s,background .3s}
+.cur-ring{width:42px;height:42px;margin:-21px 0 0 -21px;border:1px solid rgba(31,38,32,.45);display:flex;align-items:center;justify-content:center;transition:width .45s cubic-bezier(.3,1.3,.5,1),height .45s cubic-bezier(.3,1.3,.5,1),margin .45s cubic-bezier(.3,1.3,.5,1),background .4s,border-color .4s}
+.cur-ring b{font-size:13px;font-weight:600;color:#F3F0E8;opacity:0;transform:scale(.6);transition:opacity .3s,transform .4s}
+.nl.cur-link .cur-ring{width:66px;height:66px;margin:-33px 0 0 -33px;background:rgba(61,80,52,.14);border-color:transparent}
+.nl.cur-view .cur-ring{width:98px;height:98px;margin:-49px 0 0 -49px;background:var(--moss);border-color:transparent}
+.nl.cur-view .cur-ring b{opacity:1;transform:none}
+.nl.cur-view .cur-dot,.nl.cur-link .cur-dot{opacity:0}
+.nl.cur-dark .cur-ring{border-color:rgba(243,240,232,.55)}
+.nl.cur-dark .cur-dot{background:#C9D6B5}
+.nl.cur-dark.cur-link .cur-ring{background:rgba(243,240,232,.14)}
+
+/* split headings */
+.nl.js .split .sw{display:inline-block;overflow:hidden;vertical-align:top;padding:0 .06em .12em 0;margin-bottom:-.12em}
+.nl.js .split .sw-i{display:inline-block;transform:translateY(110%) rotate(7deg);transform-origin:0 100%;transition-property:transform;transition-duration:1.1s;transition-timing-function:cubic-bezier(.2,.8,.2,1)}
+.nl.js .split.in .sw-i{transform:none}
+.nl.js .eyebrow.rv::before{width:0;transition:width 1s cubic-bezier(.7,0,.2,1) .35s}
+.nl.js .eyebrow.rv.in::before{width:28px}
+
+/* image reveal (curtain) */
+.nl.js .rv-clip{clip-path:inset(0 0 100% 0);transition:clip-path 1.4s cubic-bezier(.7,0,.2,1)}
+.nl.js .rv-clip.in{clip-path:inset(0 0 0 0)}
+.nl.js .rv-clip .crop{transform:scale(1.3);transition:transform 1.8s cubic-bezier(.2,.8,.2,1)}
+.nl.js .rv-clip.in .crop{transform:none}
+.nl.js .rv-sec .ph{clip-path:inset(100% 0 0 0);transition:clip-path 1.3s cubic-bezier(.7,0,.2,1)}
+.nl.js .rv-sec.in .ph{clip-path:inset(0 0 0 0)}
+.nl.js .rv-sec:not(.in) .crop{transform:scale(1.3)}
+.rv-sec .cw:nth-child(2) .ph{transition-delay:.12s}.rv-sec .cw:nth-child(3) .ph{transition-delay:.24s}.rv-sec .cw:nth-child(4) .ph{transition-delay:.36s}
+
+/* image shine */
+.ph::after{content:"";position:absolute;top:0;left:-80%;width:50%;height:100%;background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.38));transform:skewX(-24deg);pointer-events:none;z-index:2}
+.card:hover .ph::after{animation:shine .95s cubic-bezier(.4,0,.2,1)}
+@keyframes shine{to{left:130%}}
+
+/* about image + badge */
+.about-img{position:relative;margin-top:56px;max-width:520px}
+.about-ph{position:relative;aspect-ratio:4/3;border-radius:28px;overflow:hidden;background:#DCD8CE}
+.a1{background-size:auto 150%;background-position:30.5% 75.8%}
+.about-ph:hover .crop{transform:scale(1.06)}
+.badge{position:absolute;right:-36px;bottom:-40px;width:138px;height:138px;border-radius:50%;background:var(--bg);display:flex;align-items:center;justify-content:center}
+.badge-txt{position:absolute;inset:0;width:100%;height:100%;animation:spin 18s linear infinite}
+.badge:hover .badge-txt{animation-duration:5s}
+.badge-txt text{font-size:10.5px;font-weight:600;letter-spacing:2px;fill:var(--ink);font-family:"Inter Tight",sans-serif}
+.badge-c{width:58px;height:58px;border-radius:50%;background:var(--moss);color:#F3F0E8;display:flex;align-items:center;justify-content:center;transition:transform .7s cubic-bezier(.3,1.4,.5,1)}
+.badge:hover .badge-c{transform:rotate(-30deg) scale(1.08)}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* scroll-driven outline ticker */
+.sv{overflow:hidden;padding:40px 0 120px;display:grid;gap:8px}
+.sv-row{display:flex;width:max-content;font-family:"Instrument Serif",serif;font-size:clamp(64px,9vw,140px);line-height:1;white-space:nowrap;will-change:transform}
+.sv-row span{padding:0 28px;color:transparent;-webkit-text-stroke:1px rgba(31,38,32,.4)}
+.sv-row span.f{color:var(--moss);-webkit-text-stroke:0;font-style:italic}
+.sv-a{transform:translateX(calc(var(--sp,0) * -38% + 6%))}
+.sv-b{transform:translateX(calc(-44% + var(--sp,0) * 38%))}
+
+/* back to top */
+.totop{position:fixed;right:24px;bottom:24px;z-index:55;width:56px;height:56px;border-radius:50%;background:var(--bg);color:var(--ink);display:flex;align-items:center;justify-content:center;box-shadow:0 12px 30px -12px rgba(31,38,32,.35);opacity:0;transform:translateY(20px) scale(.8);pointer-events:none;transition:opacity .4s,transform .5s cubic-bezier(.3,1.4,.5,1)}
+.nl.scrolled .totop{opacity:1;transform:none;pointer-events:auto}
+.totop:hover svg:last-child{animation:upBob .8s ease}
+@keyframes upBob{40%{transform:translateY(-5px)}}
+.tt-ring{position:absolute;inset:2px;width:52px;height:52px;transform:rotate(-90deg)}
+.tt-bg,.tt-fg{fill:none;stroke-width:2}
+.tt-bg{stroke:rgba(31,38,32,.1)}
+.tt-fg{stroke:var(--moss);stroke-dasharray:150.8;stroke-dashoffset:calc(150.8px * (1 - var(--sp,0)))}
+
 /* responsive */
 @media (max-width:1100px){
 .grid4{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -249,6 +331,10 @@ html{scroll-behavior:smooth;scroll-padding-top:84px}
 .band{height:460px}
 .band-q{left:20px;right:20px;top:40px;text-align:left}
 .marq-track span{font-size:26px;gap:40px;padding:0 20px}
+.badge{right:12px;bottom:-34px;width:116px;height:116px}
+.sv{padding:20px 0 80px}
+.totop{right:16px;bottom:16px}
+.pre-in{font-size:44px}
 .offer,.contact{border-radius:28px 28px 0 0}
 .form{padding:26px 20px}
 .row2{grid-template-columns:minmax(0,1fr)}
@@ -271,6 +357,9 @@ html{scroll-behavior:auto}
 </helmet>
 <div class="nl" style="min-height: 100px">
 <div class="prog" aria-hidden="true"></div>
+<div class="pre" aria-hidden="true"><div class="pre-in"><svg width="54" height="54" viewBox="0 0 32 32" fill="none"><path d="M6 26C6 14 14 6 27 5c0 13-8 21-20 21Z" stroke="#C9D6B5" stroke-width="1.4" stroke-linejoin="round"></path><path d="M6 26 18 14" stroke="#C9D6B5" stroke-width="1.4" stroke-linecap="round"></path></svg><span class="pre-w"><i style="animation-delay: 0.25s">N</i><i style="animation-delay: 0.30s">o</i><i style="animation-delay: 0.35s">r</i><i style="animation-delay: 0.40s">d</i><i style="animation-delay: 0.45s">l</i><i style="animation-delay: 0.50s">e</i><i style="animation-delay: 0.55s">a</i><i style="animation-delay: 0.60s">f</i></span></div></div>
+<div class="cur" aria-hidden="true"><span class="cur-dot"></span><span class="cur-ring"><b>Zobacz</b></span></div>
+<a class="totop" href="#top" aria-label="Wróć na górę"><svg class="tt-ring" viewBox="0 0 52 52" aria-hidden="true"><circle cx="26" cy="26" r="24" class="tt-bg"></circle><circle cx="26" cy="26" r="24" class="tt-fg"></circle></svg><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
 
 <header class="hdr">
 <div class="wrap hdr-in">
@@ -302,21 +391,21 @@ html{scroll-behavior:auto}
 <img class="hero-img" src="./assets/c99904a7cb58a7a9833bd1ce80686435.jpg" alt="Ściana z zielonymi i różowymi kompozycjami roślinnymi oraz donicami: grafitową, terakotową i ze szkła satynowego">
 </div>
 <div class="hero-panel">
-<div class="eyebrow fade-up" style="animation-delay: .5s">Rośliny · Donice · Zestawy</div>
+<div class="eyebrow fade-up" style="animation-delay: 1.6s">Rośliny · Donice · Zestawy</div>
 <h1>
-<span class="w"><span style="animation-delay: .6s"><em>Zieleń</em></span></span>
-<span class="w"><span style="animation-delay: .7s">dobrana</span></span>
-<span class="w"><span style="animation-delay: .8s">do</span></span>
-<span class="w"><span style="animation-delay: .9s">Twojego</span></span>
-<span class="w"><span style="animation-delay: 1s">wnętrza</span></span>
+<span class="w"><span style="animation-delay: 1.7s"><em>Zieleń</em></span></span>
+<span class="w"><span style="animation-delay: 1.8s">dobrana</span></span>
+<span class="w"><span style="animation-delay: 1.9s">do</span></span>
+<span class="w"><span style="animation-delay: 2s">Twojego</span></span>
+<span class="w"><span style="animation-delay: 2.1s">wnętrza</span></span>
 </h1>
-<p class="fade-up" style="animation-delay: 1.2s">Rośliny i donice na zamówienie oraz gotowe zestawy do mieszkań, biur i lokali. Napisz, czego szukasz — resztę ustalimy razem.</p>
-<div class="hero-ctas fade-up" style="animation-delay: 1.35s">
+<p class="fade-up" style="animation-delay: 2.3s">Rośliny i donice na zamówienie oraz gotowe zestawy do mieszkań, biur i lokali. Napisz, czego szukasz — resztę ustalimy razem.</p>
+<div class="hero-ctas fade-up" style="animation-delay: 2.45s">
 <a class="btn btn-dark" href="#kontakt" onMouseMove="{{mag}}" onMouseLeave="{{magOut}}"><span>Wyślij zapytanie</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
 <a class="btn btn-ghost" href="#oferta"><span>Zobacz ofertę</span></a>
 </div>
 </div>
-<div class="scroll-cue fade-up" style="animation-delay: 1.6s" aria-hidden="true"><span>Przewiń</span><i></i></div>
+<div class="scroll-cue fade-up" style="animation-delay: 2.7s" aria-hidden="true"><span>Przewiń</span><i></i></div>
 </section>
 
 <div class="marq" aria-hidden="true">
@@ -330,7 +419,11 @@ html{scroll-behavior:auto}
 <div class="wrap about-grid">
 <div>
 <div class="eyebrow rv">O Nordleaf</div>
-<h2 class="rv d1">Dobieramy zieleń do miejsca, <em>nie odwrotnie.</em></h2>
+<h2 class="split"><span class="sw"><span class="sw-i" style="transition-delay: 0.00s">Dobieramy</span></span> <span class="sw"><span class="sw-i" style="transition-delay: 0.06s">zieleń</span></span> <span class="sw"><span class="sw-i" style="transition-delay: 0.11s">do</span></span> <span class="sw"><span class="sw-i" style="transition-delay: 0.17s">miejsca,</span></span> <em><span class="sw"><span class="sw-i" style="transition-delay: 0.22s">nie</span></span> <span class="sw"><span class="sw-i" style="transition-delay: 0.28s">odwrotnie.</span></span></em></h2>
+<div class="about-img">
+<div class="about-ph rv-clip"><div class="crop a1" role="img" aria-label="Rośliny w donicach na tle jasnej ściany"></div></div>
+<div class="badge rv" aria-hidden="true"><svg class="badge-txt" viewBox="0 0 120 120"><defs><path id="nlBadge" d="M60 60m-44 0a44 44 0 1 1 88 0a44 44 0 1 1-88 0"></path></defs><text><textPath href="#nlBadge" textLength="274">ROŚLINY • DONICE • ZESTAWY • </textPath></text></svg><span class="badge-c"><svg width="26" height="26" viewBox="0 0 32 32" fill="none"><path d="M6 26C6 14 14 6 27 5c0 13-8 21-20 21Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"></path><path d="M6 26 18 14" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path></svg></span></div>
+</div>
 </div>
 <div>
 <p class="about-lead rv">Nordleaf to rośliny i donice na zamówienie. Pomagamy wybrać zieleń do konkretnego wnętrza — tak, żeby dobrze wyglądała i dobrze się w nim czuła.</p>
@@ -350,12 +443,12 @@ html{scroll-behavior:auto}
 </div>
 </section>
 
-<section class="sec offer" id="oferta">
+<section class="sec offer rv-sec" id="oferta">
 <div class="wrap">
 <div class="offer-head">
 <div>
 <div class="eyebrow rv">Oferta</div>
-<h2 class="rv d1">Rośliny, donice <em>i gotowe zestawy</em></h2>
+<h2 class="split"><span class="sw"><span class="sw-i" style="transition-delay: 0.00s">Rośliny,</span></span> <span class="sw"><span class="sw-i" style="transition-delay: 0.06s">donice</span></span> <em><span class="sw"><span class="sw-i" style="transition-delay: 0.11s">i</span></span> <span class="sw"><span class="sw-i" style="transition-delay: 0.17s">gotowe</span></span> <span class="sw"><span class="sw-i" style="transition-delay: 0.22s">zestawy</span></span></em></h2>
 </div>
 <div class="tabs rv d2" role="tablist" aria-label="Kategorie oferty">
 <i class="tab-ind" aria-hidden="true" style="transform: translateX({{tabX}}%)"></i>
@@ -405,7 +498,7 @@ html{scroll-behavior:auto}
 <section class="band" aria-label="Nordleaf">
 <img class="band-img" src="./assets/c99904a7cb58a7a9833bd1ce80686435.jpg" alt="" aria-hidden="true">
 <div class="band-q">
-<h2 class="rv">Każde wnętrze ma inne światło. <em>Dlatego dobieramy, a nie sprzedajemy z półki.</em></h2>
+<h2 class="split"><span class="sw"><span class="sw-i" style="transition-delay: 0.00s">Każde</span></span> <span class="sw"><span class="sw-i" style="transition-delay: 0.06s">wnętrze</span></span> <span class="sw"><span class="sw-i" style="transition-delay: 0.11s">ma</span></span> <span class="sw"><span class="sw-i" style="transition-delay: 0.17s">inne</span></span> <span class="sw"><span class="sw-i" style="transition-delay: 0.22s">światło.</span></span> <em><span class="sw"><span class="sw-i" style="transition-delay: 0.28s">Dlatego</span></span> <span class="sw"><span class="sw-i" style="transition-delay: 0.33s">dobieramy,</span></span> <span class="sw"><span class="sw-i" style="transition-delay: 0.39s">a</span></span> <span class="sw"><span class="sw-i" style="transition-delay: 0.44s">nie</span></span> <span class="sw"><span class="sw-i" style="transition-delay: 0.49s">sprzedajemy</span></span> <span class="sw"><span class="sw-i" style="transition-delay: 0.55s">z</span></span> <span class="sw"><span class="sw-i" style="transition-delay: 0.60s">półki.</span></span></em></h2>
 </div>
 </section>
 
@@ -414,7 +507,7 @@ html{scroll-behavior:auto}
 <div class="steps-head">
 <div>
 <div class="eyebrow rv">Jak zamówić</div>
-<h2 class="rv d1">Cztery kroki <em>od zapytania do dostawy</em></h2>
+<h2 class="split"><span class="sw"><span class="sw-i" style="transition-delay: 0.00s">Cztery</span></span> <span class="sw"><span class="sw-i" style="transition-delay: 0.06s">kroki</span></span> <em><span class="sw"><span class="sw-i" style="transition-delay: 0.11s">od</span></span> <span class="sw"><span class="sw-i" style="transition-delay: 0.17s">zapytania</span></span> <span class="sw"><span class="sw-i" style="transition-delay: 0.22s">do</span></span> <span class="sw"><span class="sw-i" style="transition-delay: 0.28s">dostawy</span></span></em></h2>
 </div>
 <p class="rv d2">Nie ma tu koszyka ani płatności online. Każde zamówienie ustalamy z Tobą bezpośrednio — tak łatwiej dopasować rośliny do miejsca.</p>
 </div>
@@ -431,11 +524,16 @@ html{scroll-behavior:auto}
 </div>
 </section>
 
+<div class="sv" aria-hidden="true">
+<div class="sv-row sv-a"><span>Rośliny</span><span class="f">Donice</span><span>Zestawy</span><span class="f">Rośliny</span><span>Donice</span><span class="f">Zestawy</span><span>Rośliny</span><span class="f">Donice</span></div>
+<div class="sv-row sv-b"><span class="f">Mieszkania</span><span>Biura</span><span class="f">Lokale</span><span>Mieszkania</span><span class="f">Biura</span><span>Lokale</span><span class="f">Mieszkania</span><span>Biura</span></div>
+</div>
+
 <section class="sec contact" id="kontakt">
 <div class="wrap contact-grid">
 <div>
 <div class="eyebrow rv">Kontakt</div>
-<h2 class="rv d1">Porozmawiajmy <em>o Twoim wnętrzu</em></h2>
+<h2 class="split"><span class="sw"><span class="sw-i" style="transition-delay: 0.00s">Porozmawiajmy</span></span> <em><span class="sw"><span class="sw-i" style="transition-delay: 0.06s">o</span></span> <span class="sw"><span class="sw-i" style="transition-delay: 0.11s">Twoim</span></span> <span class="sw"><span class="sw-i" style="transition-delay: 0.17s">wnętrzu</span></span></em></h2>
 <p class="contact-lead rv d2">Wyślij zapytanie przez formularz albo napisz do nas bezpośrednio. Odpowiemy z propozycją i pytaniami, jeśli będą potrzebne.</p>
 <div class="cinfo rv d2">
 <a href="mailto:kontakt@nordleaf.pl"><span>E-mail</span><b>[ADRES E-MAIL]</b></a>
@@ -485,7 +583,7 @@ html{scroll-behavior:auto}
 </section>
 
 <footer class="foot">
-<div class="big-word" aria-hidden="true">Nordleaf</div>
+<div class="big-word split" aria-hidden="true"><span class="sw"><span class="sw-i" style="transition-delay: 0.00s">N</span></span><span class="sw"><span class="sw-i" style="transition-delay: 0.06s">o</span></span><span class="sw"><span class="sw-i" style="transition-delay: 0.12s">r</span></span><span class="sw"><span class="sw-i" style="transition-delay: 0.18s">d</span></span><span class="sw"><span class="sw-i" style="transition-delay: 0.24s">l</span></span><span class="sw"><span class="sw-i" style="transition-delay: 0.30s">e</span></span><span class="sw"><span class="sw-i" style="transition-delay: 0.36s">a</span></span><span class="sw"><span class="sw-i" style="transition-delay: 0.42s">f</span></span></div>
 <div class="wrap foot-in">
 <a class="logo" href="#top"><svg width="26" height="26" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M6 26C6 14 14 6 27 5c0 13-8 21-20 21Z" stroke="#C9D6B5" stroke-width="1.8" stroke-linejoin="round"></path><path d="M6 26 18 14" stroke="#C9D6B5" stroke-width="1.8" stroke-linecap="round"></path></svg><span>Nordleaf</span></a>
 <nav aria-label="Stopka">
@@ -496,7 +594,7 @@ html{scroll-behavior:auto}
 </footer>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":5200}}'>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":5900}}'>
 class Component extends DCLogic {
   constructor(props) {
     super(props);
@@ -507,7 +605,7 @@ class Component extends DCLogic {
     if (!root) return;
     this.root = root;
     root.classList.add('js');
-    const els = root.querySelectorAll('.rv, .rv-line');
+    const els = root.querySelectorAll('.rv, .rv-line, .split, .rv-clip, .rv-sec');
     if ('IntersectionObserver' in window) {
       this.io = new IntersectionObserver((entries) => {
         entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); this.io.unobserve(e.target); } });
@@ -521,11 +619,45 @@ class Component extends DCLogic {
     window.addEventListener('scroll', this.onScroll, { passive: true, capture: true });
     window.addEventListener('resize', this.onScroll);
     this.tick();
+    if (window.matchMedia && window.matchMedia('(pointer: fine)').matches) {
+      const dot = root.querySelector('.cur-dot');
+      const ring = root.querySelector('.cur-ring');
+      if (dot && ring) {
+        root.classList.add('has-cur', 'cur-hide');
+        let mx = -200, my = -200, rx = -200, ry = -200;
+        this.onMove = (e) => {
+          mx = e.clientX; my = e.clientY;
+          dot.style.transform = 'translate3d(' + mx + 'px,' + my + 'px,0)';
+          root.classList.remove('cur-hide');
+        };
+        this.onOver = (e) => {
+          const t = e.target; if (!t || !t.closest) return;
+          const card = !!t.closest('.card');
+          root.classList.toggle('cur-view', card);
+          root.classList.toggle('cur-link', !card && !!t.closest('a, button, label, input, textarea, .badge'));
+          root.classList.toggle('cur-dark', !!t.closest('.contact, .foot, .mnav') && !t.closest('.form, .sent'));
+        };
+        this.onLeave = (e) => { if (!e.relatedTarget) root.classList.add('cur-hide'); };
+        const loop = () => {
+          rx += (mx - rx) * 0.16; ry += (my - ry) * 0.16;
+          ring.style.transform = 'translate3d(' + rx.toFixed(1) + 'px,' + ry.toFixed(1) + 'px,0)';
+          this.curRaf = requestAnimationFrame(loop);
+        };
+        loop();
+        window.addEventListener('mousemove', this.onMove, { passive: true });
+        document.addEventListener('mouseover', this.onOver);
+        document.addEventListener('mouseout', this.onLeave);
+      }
+    }
   }
   componentWillUnmount() {
     window.removeEventListener('scroll', this.onScroll, { capture: true });
     window.removeEventListener('resize', this.onScroll);
     if (this.io) this.io.disconnect();
+    if (this.curRaf) cancelAnimationFrame(this.curRaf);
+    if (this.onMove) window.removeEventListener('mousemove', this.onMove);
+    if (this.onOver) document.removeEventListener('mouseover', this.onOver);
+    if (this.onLeave) document.removeEventListener('mouseout', this.onLeave);
   }
   tick() {
     const r = this.root; if (!r) return;
@@ -534,6 +666,12 @@ class Component extends DCLogic {
     const total = rr.height - vh;
     const p = total > 0 ? Math.min(1, Math.max(0, -rr.top / total)) : 0;
     r.style.setProperty('--sp', p.toFixed(4));
+    const y = -rr.top;
+    if (this.lastY !== undefined) {
+      if (y > this.lastY + 3 && y > 700 && !this.state.menu) r.classList.add('hdr-hide');
+      else if (y < this.lastY - 3 || y < 700) r.classList.remove('hdr-hide');
+    }
+    this.lastY = y;
     const hero = r.querySelector('.hero');
     const img = r.querySelector('.hero-img');
     if (hero && img) {

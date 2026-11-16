@@ -20,6 +20,8 @@
 .band-q{left:20px;right:20px;top:40px;text-align:left}
 .marq-track span{font-size:26px;gap:40px;padding:0 20px}
 .offer,.contact{border-radius:28px 28px 0 0}
+.badge{right:12px;bottom:-34px;width:116px;height:116px}
+.totop{right:16px;bottom:16px}
 .form{padding:26px 20px}
 .row2{grid-template-columns:minmax(0,1fr)}
 .cinfo a,.cinfo div{grid-template-columns:minmax(0,1fr);gap:2px}
@@ -36,4 +38,5 @@
 @media (prefers-reduced-motion:reduce){
 .nl *,.nl *::before,.nl *::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
 html{scroll-behavior:auto}
+.nl .hero-media,.nl .hero-panel,.nl .hero .fade-up,.nl .hero .w > span{animation-delay:0s !important}
 }

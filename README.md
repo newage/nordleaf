@@ -82,7 +82,7 @@ Cloudflare Rate Limiting binding `CONTACT_LIMITER` (`wrangler.jsonc`): **5 за�
 
 ## Продуктивність
 
-Lighthouse mobile (production-збірка під `wrangler dev`, 2026-11-15, три запуски): **performance 98**, LCP 2,3–2,4 с, CLS 0,008–0,012, TBT 0–60 мс. LCP близький до порога 2,5 с через вхідну анімацію hero з дизайну (2,2 с fade-in); її не прибирали. Розбіжності порту з дизайном — у [`PORTING_NOTES.md`](PORTING_NOTES.md).
+Lighthouse mobile (production-збірка під `astro preview`, 2026-11-16, три запуски): **performance 95**, LCP 2,7–2,8 с, CLS 0,003, TBT 0–40 мс. LCP вище колишніх 2,3–2,4 с через заставку (2,2 с) і пізніший старт hero за новим дизайном; за рішенням розробника це прийнято, поріг у специфікації — LCP <3,0 с. Розбіжності порту з дизайном — у [`PORTING_NOTES.md`](PORTING_NOTES.md).
 
 ---
 

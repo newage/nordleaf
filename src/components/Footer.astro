@@ -3,7 +3,7 @@ import Logo from './Logo.astro';
 import { navItems } from '../lib/nav';
 ---
 <footer class="foot">
-  <div class="big-word" data-w="Nordleaf" aria-hidden="true"></div>
+  <div class="big-word split" aria-hidden="true">{[...'Nordleaf'].map((ch, i) => <span class="sw"><span class="sw-i" style={`transition-delay: ${(i * 0.06).toFixed(2)}s`}>{ch}</span></span>)}</div>
   <div class="wrap foot-in">
     <a class="logo" href="#top"><Logo size={26} stroke="#C9D6B5" /><span>Nordleaf</span></a>
     <nav aria-label="Stopka">

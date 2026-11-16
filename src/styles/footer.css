@@ -5,5 +5,3 @@
 .foot nav a{padding:10px 0}
 .foot nav a:hover{color:#F3F0E8}
 .big-word{font-family:"Instrument Serif",serif;font-size:min(23vw,330px);line-height:.8;color:rgba(243,240,232,.08);text-align:center;margin:40px 0 32px;letter-spacing:-.03em;white-space:nowrap;overflow:hidden}
-/* Декоративний напис: текст у псевдоелементі, щоб не потрапляв у перевірку контрасту */
-.big-word::before{content:attr(data-w)}

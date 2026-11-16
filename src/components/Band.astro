@@ -1,6 +1,7 @@
 ---
 import { Picture } from 'astro:assets';
 import { getSite } from '../lib/site';
+import SplitHeading from './SplitHeading.astro';
 
 const band = await getSite('band');
 ---
@@ -17,6 +18,6 @@ const band = await getSite('band');
     decoding="async"
   />
   <div class="band-q">
-    <h2 class="rv">{band.heading} <em>{band.headingEm}</em></h2>
+    <SplitHeading heading={band.heading} headingEm={band.headingEm} />
   </div>
 </section>

@@ -1,6 +1,7 @@
 ---
 import ArrowIcon from './ArrowIcon.astro';
 import { getSite } from '../lib/site';
+import SplitHeading from './SplitHeading.astro';
 
 const steps = await getSite('steps');
 ---
@@ -9,7 +10,7 @@ const steps = await getSite('steps');
     <div class="steps-head">
       <div>
         <div class="eyebrow rv">{steps.eyebrow}</div>
-        <h2 class="rv d1">{steps.heading} <em>{steps.headingEm}</em></h2>
+        <SplitHeading heading={steps.heading} headingEm={steps.headingEm} />
       </div>
       <p class="rv d2">{steps.lead}</p>
     </div>

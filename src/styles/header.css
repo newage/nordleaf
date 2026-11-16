@@ -1,6 +1,8 @@
 .prog{position:fixed;top:0;left:0;right:0;height:2px;z-index:60;background:var(--moss);transform-origin:0 50%;transform:scaleX(var(--sp,0))}
 
-.hdr{position:fixed;top:0;left:0;right:0;z-index:50;transition:background .5s,box-shadow .5s,padding .5s;padding:22px 0}
+.hdr{position:fixed;top:0;left:0;right:0;z-index:50;transition:background .5s,box-shadow .5s,padding .5s,transform .6s cubic-bezier(.7,0,.2,1);padding:22px 0}
+.nl.hdr-hide .hdr{transform:translateY(-110%)}
+.nl.hdr-hide .hdr:focus-within{transform:none}
 .nl.scrolled .hdr{background:rgba(243,240,232,.86);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 1px 0 rgba(31,38,32,.08);padding:12px 0}
 .hdr-in{display:flex;align-items:center;justify-content:space-between;gap:24px}
 .logo{display:inline-flex;align-items:center;gap:10px;font-family:"Instrument Serif",serif;font-size:30px;line-height:1}
@@ -24,3 +26,13 @@
 .mnav.open a{opacity:1;transform:none}
 .mnav.open a:nth-child(2){transition-delay:.25s}.mnav.open a:nth-child(3){transition-delay:.32s}.mnav.open a:nth-child(4){transition-delay:.39s}.mnav.open a:nth-child(5){transition-delay:.46s}
 .mnav small{margin-top:28px;font-size:14px;opacity:.7}
+
+/* back to top */
+.totop{position:fixed;right:24px;bottom:24px;z-index:55;width:56px;height:56px;border-radius:50%;background:var(--bg);color:var(--ink);display:flex;align-items:center;justify-content:center;box-shadow:0 12px 30px -12px rgba(31,38,32,.35);opacity:0;transform:translateY(20px) scale(.8);pointer-events:none;visibility:hidden;transition:opacity .4s,transform .5s cubic-bezier(.3,1.4,.5,1),visibility 0s .5s}
+.nl.scrolled .totop{opacity:1;transform:none;pointer-events:auto;visibility:visible;transition-delay:0s}
+.totop:hover svg:last-child{animation:upBob .8s ease}
+@keyframes upBob{40%{transform:translateY(-5px)}}
+.tt-ring{position:absolute;inset:2px;width:52px;height:52px;transform:rotate(-90deg)}
+.tt-bg,.tt-fg{fill:none;stroke-width:2}
+.tt-bg{stroke:rgba(31,38,32,.1)}
+.tt-fg{stroke:var(--moss);stroke-dasharray:150.8;stroke-dashoffset:calc(150.8px * (1 - var(--sp,0)))}

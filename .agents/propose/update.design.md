@@ -1,0 +1,1 @@
+оновити дизайн згідно з новим прикладом в .agents/propose/nordleaf.design

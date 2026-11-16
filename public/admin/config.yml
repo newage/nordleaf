@@ -95,6 +95,8 @@ collections:
           - { label: Nagłówek, name: heading, widget: string }
           - { label: Wyróżniona część nagłówka, name: headingEm, widget: string }
           - { label: Wstęp, name: lead, widget: text }
+          - { label: Zdjęcie, name: image, widget: image, choose_url: false }
+          - { label: Tekst alternatywny zdjęcia, name: imageAlt, widget: string }
           - label: Atuty (dokładnie 3)
             name: features
             widget: list

@@ -2,6 +2,7 @@
 import { TURNSTILE_SITE_KEY } from 'astro:env/client';
 import ArrowIcon from './ArrowIcon.astro';
 import { getSite } from '../lib/site';
+import SplitHeading from './SplitHeading.astro';
 import { isPlaceholder, mailHref, telHref } from '../lib/contact-info';
 
 const c = await getSite('contact');
@@ -10,15 +11,15 @@ const c = await getSite('contact');
   <div class="wrap contact-grid">
     <div>
       <div class="eyebrow rv">{c.eyebrow}</div>
-      <h2 class="rv d1">{c.heading} <em>{c.headingEm}</em></h2>
+      <SplitHeading heading={c.heading} headingEm={c.headingEm} />
       <p class="contact-lead rv d2">{c.lead}</p>
       <div class="cinfo rv d2">
         {isPlaceholder(c.email)
-          ? <div><span>E-mail</span><p style="margin: 0">{c.email}</p></div>
-          : <a href={mailHref(c.email)}><span>E-mail</span><b>{c.email}</b></a>}
+          ? <div class="lnk"><span>E-mail</span><b>{c.email}</b></div>
+          : <a class="lnk" href={mailHref(c.email)}><span>E-mail</span><b>{c.email}</b></a>}
         {isPlaceholder(c.phone)
-          ? <div><span>Telefon</span><p style="margin: 0">{c.phone}</p></div>
-          : <a href={telHref(c.phone)}><span>Telefon</span><b>{c.phone}</b></a>}
+          ? <div class="lnk"><span>Telefon</span><b>{c.phone}</b></div>
+          : <a class="lnk" href={telHref(c.phone)}><span>Telefon</span><b>{c.phone}</b></a>}
         <div><span>Obszar</span><p style="margin: 0">{c.area}</p></div>
         <div><span>Godziny</span><p style="margin: 0">{c.hours}</p></div>
       </div>

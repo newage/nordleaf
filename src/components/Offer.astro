@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import { Picture } from 'astro:assets';
 import { getSite } from '../lib/site';
+import SplitHeading from './SplitHeading.astro';
 
 const offer = await getSite('offer');
 
@@ -13,12 +14,12 @@ const groups = [
   { id: 'zestawy', label: 'Zestawy', cols: 3, ask: 'Zapytaj o ten zestaw', items: byOrder(await getCollection('sets')) },
 ];
 ---
-<section class="sec offer" id="oferta">
+<section class="sec offer rv-sec" id="oferta">
   <div class="wrap">
     <div class="offer-head">
       <div>
         <div class="eyebrow rv">{offer.eyebrow}</div>
-        <h2 class="rv d1">{offer.heading} <em>{offer.headingEm}</em></h2>
+        <SplitHeading heading={offer.heading} headingEm={offer.headingEm} />
       </div>
       <div class="tabs rv d2" role="tablist" aria-label="Kategorie oferty">
         <i class="tab-ind" aria-hidden="true" style="transform: translateX(0%)"></i>
