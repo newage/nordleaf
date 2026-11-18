@@ -8,7 +8,7 @@ services:
       args:
         HOST_UID: ${HOST_UID:-1000}
         HOST_GID: ${HOST_GID:-1000}
-    command: npm run dev
+    command: npm run dev -- --force
     ports:
       - "4321:4321"
       - "8787:8787"

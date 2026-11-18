@@ -14,6 +14,7 @@ make console   # оболонка в контейнері app; тут: npm run b
 make down
 make build     # зібрати образи
 make rebuild   # повна перебудова зі скиданням тому node_modules (після змін package.json)
+make rebuild-frontend   # швидко: скинути кеші Astro/Vite/miniflare і перезапустити app — роби після заміни файлів зображень (інакше dev віддає стару картинку)
 ```
 
 Без Docker: `npm ci && npm run dev` (сайт) і `npx decap-server` (для `/admin` локально).
